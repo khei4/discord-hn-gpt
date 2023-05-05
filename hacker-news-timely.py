@@ -38,9 +38,18 @@ PRE_MESSAGE: Prompt = {"role": "user",
 
 articles_today: Articles = {}
 today = datetime.date.today()
+times = [
+    datetime.time(hour=8, tzinfo=datetime.timezone(
+        datetime.timedelta(hours=9))),
+    datetime.time(hour=12, minute=30, tzinfo=datetime.timezone(
+        datetime.timedelta(hours=9))),
+    datetime.time(hour=15, minute=30, second=30,
+                  tzinfo=datetime.timezone(datetime.timedelta(hours=9)))
+]
 
 
-@tasks.loop(hours=DURATION_HOURS)
+# TODO: make funciton and can be trigger by user commands
+@tasks.loop(time=times)
 async def fetch_hacker_news_top_stories():
     global articles_today
     url = "https://hacker-news.firebaseio.com/v0/topstories.json"
