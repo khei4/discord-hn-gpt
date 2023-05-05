@@ -16,8 +16,8 @@ load_dotenv()
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-DURATION_HOURS = 3
-NUM_ARTICLE_PER_HOURS = 1
+# DURATION_HOURS = 3
+NUM_ARTICLE_PER_HOURS = 2
 
 intents = discord.Intents.default()
 intents.messages = True
