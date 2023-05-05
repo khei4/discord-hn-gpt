@@ -32,19 +32,18 @@ HN_URL_PREF = "https://hacker-news.firebaseio.com/v0/item/"
 openai.api_key = OPENAI_API_KEY
 
 SYS_PROMPT: Prompt = {"role": "system",
-                      "content":  "この会話では、このあと送る英語の文章を要約して伝えてください。語尾は'にゃでお願いします'"}
+                      "content":  "この会話では、このあと送る英語の文章を要約して伝えてくださいにゃ。語尾は'にゃでお願いします'"}
 PRE_MESSAGE: Prompt = {"role": "user",
                        "content": "今までの内容を日本語で要約してくださいにゃ。語尾は'にゃ'でお願いしますにゃ。\n"}
 
 articles_today: Articles = {}
 today = datetime.date.today()
+tz_jst = datetime.timezone(
+    datetime.timedelta(hours=9))
 times = [
-    datetime.time(hour=8, tzinfo=datetime.timezone(
-        datetime.timedelta(hours=9))),
-    datetime.time(hour=12, minute=30, tzinfo=datetime.timezone(
-        datetime.timedelta(hours=9))),
-    datetime.time(hour=15, minute=30, second=30,
-                  tzinfo=datetime.timezone(datetime.timedelta(hours=9)))
+    datetime.time(hour=8, tzinfo=tz_jst),
+    datetime.time(hour=12, tzinfo=tz_jst),
+    datetime.time(hour=16, tzinfo=tz_jst)
 ]
 
 
@@ -141,6 +140,7 @@ async def on_message(message):
         return
 
     # reply if message is tied with active article thread
+    # TODO: handle no starter message
     if (message.channel.starter_message is not None) and (message.channel.starter_message.id in articles_today):
         # TODO: handle commands before heneral reply ex. comments, body
         prompt = message.content
