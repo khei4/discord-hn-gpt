@@ -80,14 +80,19 @@ async def fetch_hacker_news_top_stories():
             article_url = article_info["url"]
 
             # get top comment
-            article_top_comment = article_info["kids"][0]
-            comment_url = HN_URL_PREF + str(article_top_comment) + ".json"
-            response = requests.get(comment_url)
-            response.raise_for_status()
-            comment_items = response.json()
-            comment = comment_items["text"]
-            soup = BeautifulSoup(comment, 'lxml')
-            comment_text = soup.get_text()
+            comments = article_info["kids"]
+            if 0 < len(comments):
+                top_comment = [0]
+                comment_url = HN_URL_PREF + str(top_comment) + ".json"
+                response = requests.get(comment_url)
+                response.raise_for_status()
+                comment_items = response.json()
+                comment = comment_items["text"]
+                soup = BeautifulSoup(comment, 'lxml')
+                comment_text = soup.get_text()
+            else:
+                # TODO: fetch artcile body
+                comment_text = "nothing"
 
             # cut comment into pieces less than 2000 characters
             l = 0
