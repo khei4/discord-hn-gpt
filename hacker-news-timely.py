@@ -50,6 +50,12 @@ times = [
 # TODO: make funciton and can be trigger by user commands
 @tasks.loop(time=times)
 async def fetch_hacker_news_top_stories():
+    await fetch_and_post()
+
+# TODO: take channel to post
+
+
+async def fetch_and_post():
     global articles_today
     url = "https://hacker-news.firebaseio.com/v0/topstories.json"
 
@@ -143,6 +149,8 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
+    if message.content == "HN":
+        await fetch_and_post()
 
     # reply if message is tied with active article thread
     # TODO: handle no starter message
