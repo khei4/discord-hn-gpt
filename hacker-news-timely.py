@@ -151,6 +151,7 @@ async def on_message(message):
         return
     if message.content == "HN":
         await fetch_and_post()
+        return
 
     # reply if message is tied with active article thread
     # TODO: handle no starter message
