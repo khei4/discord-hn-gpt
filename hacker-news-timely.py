@@ -132,6 +132,8 @@ async def fetch_and_post():
                 raise "No channel specified"
 
             # save comments
+            # TODO: make sending separate
+            # TODO: clip 「」
             sent_message = await target_channel.send(res_text)
             articles_today[sent_message.id] = {
                 "article_id":  article_id, "contexts": messages}
