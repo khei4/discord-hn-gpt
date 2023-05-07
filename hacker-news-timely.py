@@ -66,8 +66,10 @@ async def fetch_and_post():
         response = requests.get(url)
         response.raise_for_status()
         top_stories = response.json()
+        # print(dir(top_stories))
         cnt = 0
         for article_id in top_stories:
+            # print(article_id)
 
             # abort if number reaches
             if cnt == NUM_ARTICLE_PER_HOURS:
@@ -88,7 +90,7 @@ async def fetch_and_post():
             # get top comment
             comments = article_info["kids"]
             if 0 < len(comments):
-                top_comment = [0]
+                top_comment = comments[0]
                 comment_url = HN_URL_PREF + str(top_comment) + ".json"
                 response = requests.get(comment_url)
                 response.raise_for_status()
