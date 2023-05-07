@@ -151,6 +151,10 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
+
+    # FIXME: when talked in thread, original message
+    # is posted. maybe system prompt do wrong
+    # TODO: Check the channel to POST
     if message.content == "HN":
         await fetch_and_post()
         return
